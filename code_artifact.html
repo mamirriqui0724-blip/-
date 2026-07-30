@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>道のえきんぐ！〜九州地方の農業〜</title>
+    <style>
+        /* Reset & Base Styles */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            /* 外部フォントを使わず、OS標準の丸みのあるフォントを優先 */
+            font-family: 'Hiragino Maru Gothic ProN', 'ヒラギノ丸ゴ ProN W4', 'メイリオ', Meiryo, 'ＭＳ Ｐゴシック', sans-serif;
+            background-color: #87CEEB; /* Sky blue */
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.4) 0%, transparent 10%),
+                radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.4) 0%, transparent 15%);
+            color: #333;
+            overflow-x: hidden;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Print Styles */
+        @media print {
+            .no-print { display: none !important; }
+            body { background: white; height: auto; overflow: visible; display: block;}
+            .print-area { width: 100%; box-shadow: none; border: none; margin: 0; padding: 0; }
+            .print-border { border: 1px solid #000 !important; background: transparent !important; }
+        }
+
+        /* Layout Utilities */
+        .d-flex { display: flex; }
+        .flex-col { flex-direction: column; }
+        .flex-row { flex-direction: row; }
+        .flex-1 { flex: 1; }
+        .justify-between { justify-content: space-between; }
+        .justify-center { justify-content: center; }
+        .items-center { align-items: center; }
+        .items-end { align-items: flex-end; }
+        .gap-1 { gap: 4px; }
+        .gap-2 { gap: 8px; }
+        .gap-3 { gap: 12px; }
+        .gap-4 { gap: 16px; }
+        .gap-6 { gap: 24px; }
+        .hidden { display: none !important; }
+        .w-full { width: 100%; }
+        .h-full { height: 100%; }
+        .mx-auto { margin-left: auto; margin-right: auto; }
+        .text-center { text-align: center; }
+        .text-right { text-align: right; }
+        .text-left { text-align: left; }
+        .relative { position: relative; }
+        .absolute { position: absolute; }
+        .overflow-hidden { overflow: hidden; }
+        .overflow-y-auto { overflow-y: auto; }
+        .flex-shrink-0 { flex-shrink: 0; }
+
+        /* Typography */
+        .text-sm { font-size: 0.875rem; }
+        .text-base { font-size: 1rem; }
+        .text-lg { font-size: 1.125rem; }
+        .text-xl { font-size: 1.25rem; }
+        .text-2xl { font-size: 1.5rem; }
+        .text-3xl { font-size: 1.875rem; }
+        .text-4xl { font-size: 2.25rem; }
+        .font-bold { font-weight: bold; }
+        .font-black { font-weight: 900; }
+        .tracking-wide { letter-spacing: 0.025em; }
+        .leading-relaxed { line-height: 1.625; }
+
+        /* Colors & Backgrounds */
+        .text-blue-600 { color: #2563eb; }
+        .text-blue-700 { color: #1d4ed8; }
+        .text-blue-800 { color: #1e40af; }
+        .text-orange-500 { color: #f97316; }
+        .text-orange-600 { color: #ea580c; }
+        .text-orange-800 { color: #9a3412; }
+        .text-red-500 { color: #ef4444; }
+        .text-red-600 { color: #dc2626; }
+        .text-red-700 { color: #b91c1c; }
+        .text-green-600 { color: #16a34a; }
+        .text-green-800 { color: #166534; }
+        .text-gray-400 { color: #9ca3af; }
+        .text-gray-500 { color: #6b7280; }
+        .text-gray-600 { color: #4b5563; }
+        .text-gray-700 { color: #374151; }
+        .text-white { color: #fff; }
+
+        .bg-white { background-color: #fff; }
+        .bg-gray-50 { background-color: #f9fafb; }
+        .bg-gray-100 { background-color: #f3f4f6; }
+        .bg-gray-200 { background-color: #e5e7eb; }
+        .bg-blue-50 { background-color: #eff6ff; }
+        .bg-blue-100 { background-color: #dbeafe; }
+        .bg-yellow-50 { background-color: #fefce8; }
+        .bg-yellow-300 { background-color: #fde047; }
+        .bg-green-50 { background-color: #f0fdf4; }
+        .bg-orange-50 { background-color: #fff7ed; }
+        .bg-pink-500 { background-color: #ec4899; }
+        .bg-red-100 { background-color: #fee2e2; }
+
+        /* Spacing */
+        .p-2 { padding: 8px; }
+        .p-3 { padding: 12px; }
+        .p-4 { padding: 16px; }
+        .p-5 { padding: 20px; }
+        .p-6 { padding: 24px; }
+        .p-8 { padding: 32px; }
+        .py-1 { padding-top: 4px; padding-bottom: 4px; }
+        .px-3 { padding-left: 12px; padding-right: 12px; }
+        .py-2 { padding-top: 8px; padding-bottom: 8px; }
+        .px-4 { padding-left: 16px; padding-right: 16px; }
+        .py-3 { padding-top: 12px; padding-bottom: 12px; }
+        .px-6 { padding-left: 24px; padding-right: 24px; }
+        .py-4 { padding-top: 16px; padding-bottom: 16px; }
+        .px-8 { padding-left: 32px; padding-right: 32px; }
+        
+        .m-1 { margin: 4px; }
+        .mb-1 { margin-bottom: 4px; }
+        .mb-2 { margin-bottom: 8px; }
+        .mb-4 { margin-bottom: 16px; }
+        .mb-6 { margin-bottom: 24px; }
+        .mb-8 { margin-bottom: 32px; }
+        .mb-10 { margin-bottom: 40px; }
+        .mt-1 { margin-top: 4px; }
+        .mt-4 { margin-top: 16px; }
+        .mt-6 { margin-top: 24px; }
+        .mt-8 { margin-top: 32px; }
+        .mt-10 { margin-top: 40px; }
+        .mt-12 { margin-top: 48px; }
+        .mr-4 { margin-right: 16px; }
+        .pb-2 { padding-bottom: 8px; }
+        .pb-4 { padding-bottom: 16px; }
+        .pt-2 { padding-top: 8px; }
+        .pt-4 { padding-top: 16px; }
+        .pt-8 { padding-top: 32px; }
+
+        /* Borders & Radii */
+        .rounded { border-radius: 4px; }
+        .rounded-lg { border-radius: 8px; }
+        .rounded-xl { border-radius: 12px; }
+        .rounded-2xl { border-radius: 16px; }
+        .rounded-full { border-radius: 9999px; }
+        .border { border: 1px solid #e5e7eb; }
+        .border-2 { border: 2px solid #e5e7eb; }
+        .border-4 { border: 4px solid #e5e7eb; }
+        .border-b-2 { border-bottom: 2px solid #e5e7eb; }
+        .border-t-2 { border-top: 2px solid #e5e7eb; }
+        .border-t-4 { border-top: 4px solid #e5e7eb; }
+        .border-dashed { border-style: dashed; }
+        
+        .border-gray-200 { border-color: #e5e7eb; }
+        .border-gray-300 { border-color: #d1d5db; }
+        .border-blue-200 { border-color: #bfdbfe; }
+        .border-blue-400 { border-color: #60a5fa; }
+        .border-green-200 { border-color: #bbf7d0; }
+        .border-green-400 { border-color: #4ade80; }
+        .border-orange-200 { border-color: #fed7aa; }
+        .border-orange-400 { border-color: #fb923c; }
+        .border-yellow-200 { border-color: #fef08a; }
+        .border-yellow-400 { border-color: #facc15; }
+        .border-yellow-500 { border-color: #eab308; }
+        .border-red-300 { border-color: #fca5a5; }
+
+        .shadow-sm { box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); }
+        .shadow { box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06); }
+        .shadow-lg { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); }
+        .shadow-inner { box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06); }
+
+        /* Specific Components */
+        header { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(4px); z-index: 50; }
+        .title-stroke { -webkit-text-stroke: 1px white; }
+        
+        .cute-panel {
+            background: rgba(255, 255, 255, 0.95);
+            border: 4px solid #fff;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        /* Buttons */
+        button { font-family: inherit; cursor: pointer; outline: none; border: none; }
+        .btn-base { transition: all 0.1s ease; }
+        .btn-base:hover { opacity: 0.9; }
+        
+        .cute-btn {
+            background: linear-gradient(to bottom, #ff9a9e 0%, #fecfef 100%);
+            border: 3px solid #ff758c;
+            box-shadow: 0 6px 0 #ff758c;
+            border-radius: 16px;
+            color: #d81b60;
+            font-weight: 900;
+            text-shadow: 1px 1px 0px rgba(255,255,255,0.8);
+            display: inline-block;
+        }
+        .cute-btn:active:not(:disabled) {
+            transform: translateY(6px);
+            box-shadow: 0 0px 0 #ff758c;
+        }
+        .cute-btn.btn-blue {
+            background: linear-gradient(to bottom, #8fd3f4 0%, #84fab0 100%);
+            border-color: #38b2ac;
+            box-shadow: 0 6px 0 #38b2ac;
+            color: #00695c;
+        }
+        .cute-btn.btn-blue:active:not(:disabled) { box-shadow: 0 0px 0 #38b2ac; }
+        
+        .btn-gray { background-color: #e5e7eb; color: #374151; border-radius: 9999px; }
+        .btn-gray:hover { background-color: #d1d5db; }
+        .btn-red { background-color: #fee2e2; color: #b91c1c; border: 1px solid #fca5a5; border-radius: 9999px; }
+        .btn-red:hover { background-color: #fecaca; }
+
+        /* Form Inputs */
+        input, select, textarea {
+            font-family: inherit;
+            box-sizing: border-box;
+        }
+        .input-base {
+            width: 100%;
+            padding: 12px;
+            border-radius: 12px;
+            border: 2px solid #e5e7eb;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .input-blue { background-color: #eff6ff; border-color: #bfdbfe; }
+        .input-blue:focus { border-color: #60a5fa; }
+        .input-green { background-color: #f0fdf4; border-color: #bbf7d0; }
+        .input-green:focus { border-color: #4ade80; }
+        .input-orange { background-color: #fff7ed; border-color: #fed7aa; resize: none; }
+        .input-orange:focus { border-color: #fb923c; }
+
+        /* Map styling */
+        .map-container {
+            position: relative;
+            background-color: #e0f7fa;
+            border-radius: 15px;
+            border: 3px dashed #00acc1;
+            min-height: 400px;
+        }
+        .map-pin {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            background-color: #ff5252;
+            border: 3px solid white;
+            border-radius: 50% 50% 50% 0;
+            transform: rotate(-45deg) translate(-5px, -5px);
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+            z-index: 10;
+        }
+        .map-pin:hover {
+            transform: rotate(-45deg) translate(-5px, -5px) scale(1.3);
+            background-color: #ffeb3b;
+            z-index: 20;
+        }
+        .map-pin.selected {
+            background-color: #ffeb3b;
+            border-color: #f57f17;
+            animation: bounce 0.5s infinite alternate;
+        }
+        @keyframes bounce {
+            from { transform: rotate(-45deg) translate(-5px, -5px); }
+            to { transform: rotate(-45deg) translate(-10px, -10px); }
+        }
+
+        /* Player Sidebar */
+        .sidebar { width: 280px; background: rgba(255,255,255,0.9); border-right: 4px solid #bfdbfe; z-index: 40; }
+        .player-card {
+            transition: all 0.3s;
+            border: 3px solid transparent;
+        }
+        .player-card.active {
+            border-color: #f59e0b;
+            background-color: #fef3c7;
+            transform: scale(1.02);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        /* Mami Sensei styling */
+        .mami-container { position: relative; width: 100px; height: 100px; }
+        .mami-face {
+            width: 100%; height: 100%; background: #ffe0bd; border-radius: 50%;
+            border: 3px solid #8d6e63; position: relative; overflow: hidden;
+        }
+        .mami-hair {
+            position: absolute; top: 0; left: 0; width: 100%; height: 40%; background: #5d4037;
+        }
+        .mami-glasses {
+            position: absolute; top: 40%; left: 15%; width: 70%; height: 25%;
+            border: 3px solid #e53935; border-radius: 5px; display: flex; justify-content: space-between;
+        }
+        .mami-glasses::before { content: ''; width: 45%; border-right: 3px solid #e53935; }
+        .mami-glasses::after { content: ''; width: 45%; }
+        .mami-eye {
+            position: absolute; top: 50%; width: 12%; height: 12%; background: #000; border-radius: 50%;
+        }
+        .mami-smile {
+            position: absolute; bottom: 20%; left: 35%; width: 30%; height: 15%;
+            border-bottom: 3px solid #e53935; border-radius: 0 0 50px 50px;
+        }
+
+        .dialog-bubble {
+            position: relative; background: white; border: 4px solid #4ade80;
+            border-radius: 15px; padding: 15px;
+        }
+        .dialog-bubble::before {
+            content: ''; position: absolute; top: 20px; left: -20px;
+            border-width: 10px 20px 10px 0; border-style: solid; border-color: transparent #4ade80 transparent transparent;
+        }
+        .dialog-bubble::after {
+            content: ''; position: absolute; top: 24px; left: -13px;
+            border-width: 6px 14px 6px 0; border-style: solid; border-color: transparent white transparent transparent;
+        }
+
+        /* Layout Grid for Results */
+        .grid-2col { display: grid; grid-template-columns: 1fr; gap: 24px; }
+        @media (min-width: 768px) {
+            .grid-2col { grid-template-columns: 1fr 1fr; }
+            .md-flex-row { flex-direction: row; }
+        }
+
+        /* Scale Utility */
+        .scale-110 { transform: scale(1.1); }
+
+        /* Confetti Animation */
+        .confetti-piece {
+            position: fixed;
+            top: -10px;
+            width: 10px;
+            height: 10px;
+            z-index: 9999;
+            animation: fall linear forwards;
+            pointer-events: none;
+            opacity: 0.8;
+        }
+        @keyframes fall {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="d-flex justify-between items-center p-3 shadow-sm no-print">
+        <h1 class="text-2xl font-black text-blue-600 tracking-wide title-stroke">
+            道のえきんぐ！<span class="text-lg text-orange-500">〜九州地方の農業〜</span>
+        </h1>
+        <div class="d-flex gap-2">
+            <button onclick="confirmReset()" class="btn-base btn-gray px-4 py-2 font-bold text-sm">最初からやり直す</button>
+            <button onclick="showFinalResult(true)" id="force-end-btn" class="btn-base btn-red px-4 py-2 font-bold text-sm hidden">ゲーム終了・結果へ</button>
+        </div>
+    </header>
+
+    <div class="d-flex flex-1 overflow-hidden relative">
+        
+        <!-- 左サイドバー (プレイヤー情報) -->
+        <aside id="sidebar" class="sidebar p-4 overflow-y-auto hidden flex-col gap-3 no-print shadow-lg">
+            <h2 class="text-center font-bold text-gray-500 mb-2 border-b-2 pb-2">プレイヤー状況</h2>
+            <div id="player-list-container" class="d-flex flex-col gap-3">
+                <!-- プレイヤーカードがここに生成されます -->
+            </div>
+            
+            <div class="mt-auto pt-4 border-t-2 border-gray-200">
+                <div class="bg-blue-50 p-3 rounded-lg text-sm">
+                    <p class="font-bold text-blue-800 mb-1">🎯 勝利条件</p>
+                    <p>誰かが <span class="font-black text-lg text-red-500">1億円</span> に到達したらゲーム終了！地理の知識を使って稼ごう！</p>
+                </div>
+            </div>
+        </aside>
+
+        <!-- メインコンテンツ領域 -->
+        <main class="flex-1 p-4 relative overflow-y-auto">
+            
+            <div id="screen-setup" class="cute-panel max-w-2xl mx-auto mt-10 p-8 text-center print-area">
+                <h2 class="text-3xl font-black text-orange-500 mb-6">ゲームの準備</h2>
+                
+                <div class="mb-8 bg-yellow-50 p-4 rounded-xl border-2 border-yellow-200 text-left">
+                    <p class="font-bold mb-2">📚 このゲームの目的</p>
+                    <p class="text-sm leading-relaxed">
+                        プレイヤーは九州地方（沖縄県含む）に「道の駅」を出店するオーナーです。<br>
+                        出店する<strong>場所</strong>と<strong>特産品</strong>を選び、その理由を説明します。<br>
+                        地形や気候、農業の特色に合っているほど収益がアップ！最初に1億円稼いだ人の勝ちです。
+                    </p>
+                </div>
+
+                <div class="mb-6">
+                    <label class="font-bold text-lg mb-2" style="display: block;">遊ぶ人数を選んでね</label>
+                    <div class="d-flex justify-center gap-4">
+                        <button class="player-num-btn cute-btn px-6 py-2 text-xl btn-base" data-num="2">2人</button>
+                        <button class="player-num-btn cute-btn px-6 py-2 text-xl btn-base" data-num="3">3人</button>
+                        <button class="player-num-btn cute-btn px-6 py-2 text-xl btn-base" data-num="4">4人</button>
+                    </div>
+                </div>
+
+                <div id="player-names-input" class="hidden flex-col gap-3 max-w-md mx-auto mb-8">
+                    <!-- 入力フィールドがここに生成されます -->
+                </div>
+
+                <button id="start-game-btn" class="cute-btn btn-blue w-full max-w-md py-4 text-2xl hidden mx-auto btn-base">
+                    ゲームスタート！
+                </button>
+            </div>
+
+            <div id="screen-play" class="hidden h-full flex-col md-flex-row gap-4 no-print">
+                
+                <!-- 地図エリア -->
+                <div class="flex-1 map-container relative">
+                    <h3 class="absolute bg-white px-3 py-1 rounded-full font-bold text-sm shadow" style="top:8px; left:8px; z-index:20;">地図から選ぶ</h3>
+                    <!-- SVG Map -->
+                    <svg viewBox="0 0 200 250" class="w-full h-full p-4" style="opacity:0.5;" preserveAspectRatio="xMidYMid meet">
+                        <path d="M90,30 C120,30 130,50 140,80 C150,110 140,160 120,190 C100,220 80,220 70,180 C60,150 40,140 50,100 C60,70 70,30 90,30 Z" fill="#a7f3d0" stroke="#059669" stroke-width="2"/>
+                        <path d="M30,220 C40,220 45,230 40,240 C35,250 20,240 30,220 Z" fill="#a7f3d0" stroke="#059669" stroke-width="2"/>
+                        <text x="35" y="235" font-size="8" fill="#064e3b" font-weight="bold">沖縄</text>
+                        <text x="90" y="60" font-size="10" fill="#064e3b" font-weight="bold">福岡</text>
+                        <text x="60" y="70" font-size="10" fill="#064e3b" font-weight="bold">佐賀</text>
+                        <text x="50" y="100" font-size="10" fill="#064e3b" font-weight="bold">長崎</text>
+                        <text x="120" y="90" font-size="10" fill="#064e3b" font-weight="bold">大分</text>
+                        <text x="80" y="120" font-size="10" fill="#064e3b" font-weight="bold">熊本</text>
+                        <text x="120" y="140" font-size="10" fill="#064e3b" font-weight="bold">宮崎</text>
+                        <text x="90" y="170" font-size="10" fill="#064e3b" font-weight="bold">鹿児島</text>
+                    </svg>
+                    <!-- ピンコンテナ -->
+                    <div id="map-pins-container"></div>
+                </div>
+
+                <!-- 入力フォームエリア -->
+                <div class="flex-1 cute-panel p-5 d-flex flex-col h-full overflow-y-auto">
+                    <div class="mb-4 text-center">
+                        <span id="current-player-name" class="bg-yellow-300 px-4 py-1 rounded-full font-black text-xl mb-1 border-2 border-yellow-500 shadow-sm" style="display:inline-block;">プレイヤー名</span>
+                        <p class="font-bold text-gray-600">のターンです！出店計画を立てよう。</p>
+                    </div>
+
+                    <div class="flex-1 d-flex flex-col gap-4">
+                        <!-- 場所選択 -->
+                        <div>
+                            <label class="font-bold text-blue-800 mb-1" style="display:block;">📍 1. 出店する市町村</label>
+                            <select id="input-location" class="input-base input-blue font-bold text-lg">
+                                <option value="">-- リストまたは地図から選択 --</option>
+                            </select>
+                        </div>
+                        <!-- 特産品入力 -->
+                        <div>
+                            <label class="font-bold text-green-800 mb-1" style="display:block;">🍎 2. 販売する特産品</label>
+                            <input type="text" id="input-product" placeholder="例：いちご、さつまいも、牛肉..." class="input-base input-green font-bold text-lg">
+                        </div>
+                        <!-- 理由入力 -->
+                        <div class="flex-1 d-flex flex-col">
+                            <label class="font-bold text-orange-800 mb-1" style="display:block;">📝 3. 出店理由（地理的なアピール！）</label>
+                            <textarea id="input-reason" placeholder="なぜこの場所で、この特産品を売るのか説明してね。&#13;&#10;例：ここはシラス台地で水はけが良いから、さつまいも作りに適しているため。" class="input-base input-orange flex-1 text-base"></textarea>
+                        </div>
+                    </div>
+
+                    <button id="submit-plan-btn" class="cute-btn w-full py-4 text-xl mt-4 btn-base">
+                        この計画で出店する！
+                    </button>
+                </div>
+            </div>
+
+            <div id="screen-turn-result" class="hidden absolute bg-white w-full h-full flex-col p-6 overflow-y-auto no-print" style="top:0; left:0; z-index:50;">
+                <h2 class="text-4xl font-black text-center text-blue-600 mb-6 mt-4">出店結果発表！</h2>
+                
+                <div class="max-w-3xl mx-auto w-full grid-2col">
+                    <!-- 計算詳細 -->
+                    <div class="bg-gray-50 rounded-2xl p-6 border-4 border-gray-200 shadow-inner">
+                        <div class="text-center border-b-2 pb-4 mb-4">
+                            <p class="text-gray-500 font-bold">出店地: <span id="res-loc" class="text-gray-700 text-xl"></span></p>
+                            <p class="text-gray-500 font-bold">特産品: <span id="res-prod" class="text-gray-700 text-xl"></span></p>
+                        </div>
+                        
+                        <div class="font-bold text-lg" style="font-family: monospace;">
+                            <div class="d-flex justify-between mb-2"><span>基本収益</span><span id="calc-base">0万G</span></div>
+                            <div class="d-flex justify-between mb-2 text-green-600"><span>特産品マッチ</span><span id="calc-prod">+0万G</span></div>
+                            <div class="d-flex justify-between mb-2 text-blue-600"><span>説明説得力(キーワード)</span><span id="calc-reason">+0万G</span></div>
+                            <div id="calc-bonus-container" class="d-flex justify-between mb-2 text-orange-500 hidden"><span>特別ボーナス</span><span id="calc-bonus">+0万G</span></div>
+                            <div id="calc-penalty-container" class="d-flex justify-between mb-2 text-red-500 hidden"><span>環境不適合</span><span id="calc-penalty">-0万G</span></div>
+                            <div class="d-flex justify-between mb-2 text-gray-500 border-t-2 pt-2 text-sm"><span>イベント/運</span><span id="calc-random">±0万G</span></div>
+                            
+                            <div class="d-flex justify-between text-2xl border-t-4 pt-4 mt-4 font-black">
+                                <span>合計収益</span>
+                                <span id="calc-total" class="text-blue-700">0万円</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- まみ先生のコメント -->
+                    <div class="d-flex flex-col">
+                        <div class="d-flex gap-4 items-end mb-4">
+                            <div class="mami-container flex-shrink-0">
+                                <div class="mami-hair"></div>
+                                <div class="mami-face">
+                                    <div class="mami-glasses"></div>
+                                    <div class="mami-eye" style="left: 25%;"></div>
+                                    <div class="mami-eye" style="left: 63%;"></div>
+                                    <div class="mami-smile"></div>
+                                </div>
+                            </div>
+                            <div class="bg-pink-500 text-white px-3 py-1 rounded-full font-bold text-sm shadow mb-2" style="transform: rotate(-3deg);">まみ先生の講評</div>
+                        </div>
+                        
+                        <div class="dialog-bubble flex-1 text-lg leading-relaxed font-bold">
+                            <p id="mami-feedback">フィードバックがここに入ります。</p>
+                        </div>
+                        
+                        <button id="next-player-btn" class="cute-btn btn-blue w-full py-4 text-xl mt-6 btn-base">
+                            次のプレイヤーへ ⏩
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="screen-final-result" class="hidden cute-panel max-w-4xl mx-auto my-6 p-8 print-area">
+                <div class="text-center mb-8">
+                    <h2 class="text-4xl font-black text-orange-600 mb-2">最終結果発表！</h2>
+                    <p class="text-xl font-bold text-gray-600">道のえきんぐは誰の手に！？</p>
+                </div>
+
+                <div id="ranking-container" class="mb-10" style="display:flex; flex-direction:column; gap:16px;">
+                    <!-- ランキングがここに生成されます -->
+                </div>
+                
+                <!-- 印刷用の振り返りシート -->
+                <div class="mt-12 border-t-4 border-dashed border-gray-300 pt-8">
+                    <div class="d-flex justify-between items-center mb-4">
+                        <h3 class="text-2xl font-bold bg-blue-100 px-4 py-2 rounded-lg" style="display:inline-block;">📝 振り返りシート</h3>
+                        <p class="text-gray-500 font-bold">年　　組　氏名：＿＿＿＿＿＿＿＿＿＿＿＿</p>
+                    </div>
+                    
+                    <div class="d-flex flex-col gap-6">
+                        <div>
+                            <p class="font-bold mb-2 text-lg">Q1. 一番収益が高かった出店計画とその理由（地形や気候）を書きましょう。</p>
+                            <textarea class="w-full p-3 border-2 border-gray-300 rounded-lg print-border" style="height:100px; resize:none;" placeholder="ブラウザに入力して印刷、または印刷後に手書きできます。"></textarea>
+                        </div>
+                        <div>
+                            <p class="font-bold mb-2 text-lg">Q2. このゲームを通して、九州地方の農業について分かったこと・気づいたことを書きましょう。</p>
+                            <textarea class="w-full p-3 border-2 border-gray-300 rounded-lg print-border" style="height:150px; resize:none;" placeholder="促成栽培、シラス台地、二毛作などの言葉を使って書いてみよう。"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-8 text-center no-print d-flex justify-center gap-4">
+                    <button onclick="window.print()" class="cute-btn px-8 py-3 text-lg btn-base">🖨️ 結果を印刷する</button>
+                    <button onclick="confirmReset()" class="btn-base btn-gray px-6 py-3 font-bold">タイトルに戻る</button>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <script>
+        // --- Core Data ---
+        const LOCATIONS = [
+            { id: 'fukuoka_kurume', name: '福岡県 久留米市', type: 'plain', region: '筑紫平野', hasStation: true, x: 95, y: 75, keywords: ['いちご', 'あまおう', '米', '麦', '小麦', '二毛作', '近郊農業', '筑後川'] },
+            { id: 'fukuoka_fukuoka', name: '福岡県 福岡市', type: 'city', region: '都市部', hasStation: false, x: 85, y: 55, keywords: ['いちご', '近郊農業', '都市', '市場', '交通'] },
+            { id: 'saga_saga', name: '佐賀県 佐賀市', type: 'plain', region: '佐賀平野', hasStation: false, x: 70, y: 70, keywords: ['米', '麦', '小麦', 'たまねぎ', '二毛作', 'クリーク', '干拓'] },
+            { id: 'nagasaki_unzen', name: '長崎県 雲仙市', type: 'mountain', region: '島原半島', hasStation: true, x: 55, y: 110, keywords: ['じゃがいも', '段々畑', '斜面', '水はけ', '火山', '温暖'] },
+            { id: 'nagasaki_nagasaki', name: '長崎県 長崎市', type: 'mountain', region: '沿岸部', hasStation: false, x: 40, y: 95, keywords: ['びわ', 'みかん', '段々畑', '斜面'] },
+            { id: 'kumamoto_kumamoto', name: '熊本県 熊本市', type: 'plain', region: '熊本平野', hasStation: true, x: 80, y: 110, keywords: ['すいか', 'トマト', '地下水', '近郊農業'] },
+            { id: 'kumamoto_yatsushiro', name: '熊本県 八代市', type: 'plain', region: '八代平野', hasStation: true, x: 85, y: 130, keywords: ['い草', 'いぐさ', '畳', 'トマト', '促成栽培', '干拓'] },
+            { id: 'oita_taketa', name: '大分県 竹田市', type: 'mountain', region: '内陸部', hasStation: true, x: 110, y: 100, keywords: ['かぼす', 'しいたけ', '乾しいたけ', '山間部', '火山灰'] },
+            { id: 'miyazaki_miyazaki', name: '宮崎県 宮崎市', type: 'plain', region: '宮崎平野', hasStation: true, x: 130, y: 145, keywords: ['ピーマン', 'きゅうり', 'マンゴー', '促成栽培', '温暖', 'ビニールハウス', '冬', '日照時間'] },
+            { id: 'miyazaki_miyakonojo', name: '宮崎県 都城市', type: 'plateau', region: '内陸部', hasStation: true, x: 115, y: 160, keywords: ['豚', '牛', '鶏', '肉', '畜産', 'シラス台地'] },
+            { id: 'kagoshima_kanoya', name: '鹿児島県 鹿屋市', type: 'plateau', region: 'シラス台地(大隅)', hasStation: true, x: 110, y: 190, keywords: ['さつまいも', '豚', '牛', '畜産', 'シラス台地', '火山灰', '水はけ', '台地'] },
+            { id: 'kagoshima_minamikyushu', name: '鹿児島県 南九州市', type: 'plateau', region: 'シラス台地(薩摩)', hasStation: true, x: 80, y: 195, keywords: ['茶', 'お茶', 'さつまいも', 'シラス台地', '水はけ', '温暖'] },
+            { id: 'okinawa_ishigaki', name: '沖縄県 石垣市', type: 'island', region: '南西諸島', hasStation: false, x: 15, y: 240, keywords: ['さとうきび', 'パイナップル', 'マンゴー', '温暖', '熱帯', '亜熱帯', '台風'] }
+        ];
+
+        const TARGET_MONEY = 10000; // 1億円 (単位: 万円)
+        const INITIAL_MONEY = 300;
+
+        let state = {
+            phase: 'setup',
+            players: [],
+            currentPlayerIndex: 0,
+            turnCount: 1
+        };
+
+        const screens = {
+            setup: document.getElementById('screen-setup'),
+            play: document.getElementById('screen-play'),
+            turnResult: document.getElementById('screen-turn-result'),
+            finalResult: document.getElementById('screen-final-result')
+        };
+        const sidebar = document.getElementById('sidebar');
+        const forceEndBtn = document.getElementById('force-end-btn');
+
+        function init() {
+            loadState();
+            populateLocationSelect();
+            drawMapPins();
+            
+            document.querySelectorAll('.player-num-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => setupPlayerInputs(parseInt(e.target.dataset.num)));
+            });
+            
+            document.getElementById('start-game-btn').addEventListener('click', startGame);
+            document.getElementById('submit-plan-btn').addEventListener('click', submitPlan);
+            document.getElementById('next-player-btn').addEventListener('click', nextPlayerTurn);
+            
+            document.getElementById('input-location').addEventListener('change', (e) => {
+                highlightMapPin(e.target.value);
+            });
+
+            renderCurrentState();
+        }
+
+        function loadState() {
+            const saved = localStorage.getItem('michinoEkingState');
+            if (saved) {
+                try { state = JSON.parse(saved); } catch (e) { console.error("Parse error", e); }
+            }
+        }
+
+        function saveState() {
+            localStorage.setItem('michinoEkingState', JSON.stringify(state));
+        }
+
+        function confirmReset() {
+            if(confirm("ゲームを最初からやり直しますか？\n（現在のデータは消去されます）")) {
+                localStorage.removeItem('michinoEkingState');
+                location.reload();
+            }
+        }
+
+        // 自作の紙吹雪アニメーション
+        function triggerConfetti() {
+            const colors = ['#f44336', '#e91e63', '#9c27b0', '#2196f3', '#4CAF50', '#FFEB3B', '#FF9800'];
+            for (let i = 0; i < 80; i++) {
+                const conf = document.createElement('div');
+                conf.className = 'confetti-piece';
+                conf.style.left = Math.random() * 100 + 'vw';
+                conf.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                conf.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                conf.style.animationDelay = (Math.random() * 1) + 's';
+                
+                // 少しランダムな形にする
+                if(Math.random() > 0.5) conf.style.borderRadius = '50%';
+                
+                document.body.appendChild(conf);
+                setTimeout(() => conf.remove(), 4000);
+            }
+        }
+
+        function switchScreen(screenId) {
+            Object.values(screens).forEach(s => {
+                s.classList.add('hidden');
+                s.classList.remove('d-flex');
+            });
+            
+            screens[screenId].classList.remove('hidden');
+            
+            if (screenId === 'play') {
+                screens[screenId].classList.add('d-flex');
+                sidebar.classList.remove('hidden');
+                sidebar.classList.add('d-flex');
+                forceEndBtn.classList.remove('hidden');
+            } else if (screenId === 'turnResult') {
+                screens[screenId].classList.add('d-flex');
+                sidebar.classList.remove('hidden');
+                sidebar.classList.add('d-flex');
+            } else {
+                if(screenId !== 'finalResult') {
+                    sidebar.classList.add('hidden');
+                    sidebar.classList.remove('d-flex');
+                }
+            }
+        }
+
+        function renderCurrentState() {
+            if (state.phase === 'setup') {
+                switchScreen('setup');
+            } else if (state.phase === 'play') {
+                switchScreen('play');
+                updateSidebar();
+                prepareTurnUI();
+            } else if (state.phase === 'final') {
+                switchScreen('finalResult');
+                sidebar.classList.remove('hidden');
+                sidebar.classList.add('d-flex');
+                forceEndBtn.classList.add('hidden');
+                renderFinalRanking();
+            }
+        }
+
+        function setupPlayerInputs(num) {
+            document.querySelectorAll('.player-num-btn').forEach(btn => {
+                btn.classList.remove('btn-blue', 'scale-110');
+            });
+            document.querySelector(`[data-num="${num}"]`).classList.add('btn-blue', 'scale-110');
+
+            const container = document.getElementById('player-names-input');
+            container.innerHTML = '';
+            container.classList.remove('hidden');
+            container.classList.add('d-flex');
+
+            for (let i = 1; i <= num; i++) {
+                container.innerHTML += `
+                    <div class="d-flex items-center gap-3 bg-white p-2 rounded-lg border-2">
+                        <span class="font-black text-gray-400 text-xl text-center" style="width:32px;">${i}</span>
+                        <input type="text" id="p-name-${i}" placeholder="プレイヤー${i}の名前" class="input-base" required>
+                    </div>
+                `;
+            }
+            document.getElementById('start-game-btn').classList.remove('hidden');
+        }
+
+        function startGame() {
+            const inputs = document.querySelectorAll('[id^="p-name-"]');
+            state.players = [];
+            
+            inputs.forEach((input, index) => {
+                const name = input.value.trim() || `プレイヤー${index + 1}`;
+                state.players.push({
+                    id: index, name: name, money: INITIAL_MONEY, history: []
+                });
+            });
+
+            if(state.players.length >= 2) {
+                state.phase = 'play';
+                state.currentPlayerIndex = 0;
+                state.turnCount = 1;
+                saveState();
+                renderCurrentState();
+            }
+        }
+
+        function populateLocationSelect() {
+            const select = document.getElementById('input-location');
+            LOCATIONS.forEach(loc => {
+                const option = document.createElement('option');
+                option.value = loc.id;
+                option.textContent = `${loc.name} (${loc.region})`;
+                select.appendChild(option);
+            });
+        }
+
+        function drawMapPins() {
+            const container = document.getElementById('map-pins-container');
+            container.innerHTML = '';
+            LOCATIONS.forEach(loc => {
+                const pin = document.createElement('div');
+                pin.className = 'map-pin';
+                pin.style.left = `${loc.x}px`;
+                pin.style.top = `${loc.y}px`;
+                pin.title = loc.name;
+                pin.dataset.id = loc.id;
+                
+                pin.addEventListener('click', () => {
+                    document.getElementById('input-location').value = loc.id;
+                    highlightMapPin(loc.id);
+                });
+                container.appendChild(pin);
+            });
+        }
+
+        function highlightMapPin(id) {
+            document.querySelectorAll('.map-pin').forEach(p => p.classList.remove('selected'));
+            if(id) {
+                const pin = document.querySelector(`.map-pin[data-id="${id}"]`);
+                if(pin) pin.classList.add('selected');
+            }
+        }
+
+        function updateSidebar() {
+            const container = document.getElementById('player-list-container');
+            container.innerHTML = '';
+            
+            state.players.forEach((p, idx) => {
+                const isActive = idx === state.currentPlayerIndex;
+                const progress = Math.min(100, (p.money / TARGET_MONEY) * 100);
+                
+                let historyHtml = '';
+                if(p.history.length > 0) {
+                    const last = p.history[p.history.length - 1];
+                    const locData = LOCATIONS.find(l => l.id === last.locationId);
+                    historyHtml = `<p class="text-sm text-gray-500 mt-1 truncate" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">最新: ${locData ? locData.name : ''} (${last.product})</p>`;
+                }
+
+                container.innerHTML += `
+                    <div class="player-card bg-white p-3 rounded-xl border-2 ${isActive ? 'active border-yellow-500' : ''}">
+                        <div class="d-flex justify-between items-end mb-1">
+                            <span class="font-bold ${isActive ? 'text-orange-600 text-lg' : 'text-gray-700'}">${p.name}</span>
+                            <span class="font-black ${p.money >= TARGET_MONEY ? 'text-red-500' : 'text-blue-600'}">${p.money.toLocaleString()}万G</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full mb-1" style="height:8px;">
+                            <div class="rounded-full" style="height:100%; width: ${progress}%; background: linear-gradient(to right, #facc15, #f97316); transition: width 0.5s;"></div>
+                        </div>
+                        <div class="text-sm text-gray-500 d-flex justify-between">
+                            <span>店舗数: ${p.history.length}</span>
+                            ${progress >= 100 ? '👑 クリア！' : ''}
+                        </div>
+                        ${historyHtml}
+                    </div>
+                `;
+            });
+        }
+
+        function prepareTurnUI() {
+            const player = state.players[state.currentPlayerIndex];
+            document.getElementById('current-player-name').textContent = player.name;
+            document.getElementById('input-location').value = '';
+            document.getElementById('input-product').value = '';
+            document.getElementById('input-reason').value = '';
+            highlightMapPin('');
+        }
+
+        function submitPlan() {
+            const locId = document.getElementById('input-location').value;
+            const product = document.getElementById('input-product').value.trim();
+            const reason = document.getElementById('input-reason').value.trim();
+
+            if (!locId || !product) {
+                alert("市町村と特産品は必ず入力してね！");
+                return;
+            }
+
+            const locData = LOCATIONS.find(l => l.id === locId);
+            const result = calculateProfit(locData, product, reason);
+            
+            const player = state.players[state.currentPlayerIndex];
+            player.history.push({
+                locationId: locId, product: product, reason: reason, profit: result.total
+            });
+            player.money += result.total;
+            
+            saveState();
+            showTurnResult(locData, product, reason, result);
+        }
+
+        function calculateProfit(loc, product, reason) {
+            const productLower = product.toLowerCase();
+            const textLower = productLower + " " + reason.toLowerCase();
+            
+            let base = 100;
+            let prodMatch = 0;
+            let reasonMatch = 0;
+            let bonus = 0;
+            let penalty = 0;
+            let bonusReason = '';
+            let penaltyReason = '';
+
+            let isProdMatched = false;
+            loc.keywords.forEach(kw => {
+                if (productLower.includes(kw)) {
+                    isProdMatched = true;
+                    prodMatch += 150;
+                }
+            });
+            if (!isProdMatched) {
+                penalty += 100;
+                penaltyReason = 'この地域の有名な特産品ではないようです。';
+            }
+
+            let foundKeywords = [];
+            loc.keywords.forEach(kw => {
+                if (reason.includes(kw) && !productLower.includes(kw)) {
+                    foundKeywords.push(kw);
+                    reasonMatch += 80;
+                }
+            });
+            
+            const geoKeywords = ['気候', '地形', '平野', '台地', '火山', '交通', '観光', '海', '山', '川', '暖かい', '冬'];
+            geoKeywords.forEach(kw => {
+                if(reason.includes(kw)) { reasonMatch += 50; }
+            });
+            reasonMatch = Math.min(reasonMatch, 400);
+
+            // 固有ボーナス
+            if (loc.region === '宮崎平野' && (textLower.includes('促成栽培') || textLower.includes('冬') || textLower.includes('ビニールハウス'))) {
+                bonus += 300;
+                bonusReason = '「促成栽培」の知識をしっかり活用できました！';
+            }
+            if ((loc.region === '筑紫平野' || loc.region === '佐賀平野') && textLower.includes('二毛作')) {
+                bonus += 300;
+                bonusReason = '平野の特徴「二毛作」に着目したのは素晴らしい！';
+            }
+            if (loc.type === 'plateau' && textLower.includes('シラス台地')) {
+                bonus += 200;
+                bonusReason = '「シラス台地」の特徴を理解していますね！';
+            }
+            if (loc.hasStation) bonus += 100;
+
+            // ペナルティ
+            if (loc.type === 'plateau' && (productLower.includes('米') || textLower.includes('水田') || textLower.includes('稲'))) {
+                penalty += 300;
+                penaltyReason = 'シラス台地は水はけが良すぎるため、水田（米作り）には不向きです…。';
+            }
+            if (loc.type === 'mountain' && (productLower.includes('米') || textLower.includes('平野'))) {
+                penalty += 150;
+                penaltyReason = 'ここは平地が少なく、大規模な農作には工夫（段々畑など）が必要です。';
+            }
+
+            const random = Math.floor(Math.random() * 101) - 50;
+            const total = base + prodMatch + reasonMatch + bonus - penalty + random;
+
+            return {
+                base, prodMatch, reasonMatch, bonus, penalty, random, total,
+                bonusReason, penaltyReason, foundKeywords, isProdMatched
+            };
+        }
+
+        function showTurnResult(loc, product, reason, result) {
+            document.getElementById('res-loc').textContent = loc.name;
+            document.getElementById('res-prod').textContent = product;
+            
+            document.getElementById('calc-base').textContent = `${result.base}万G`;
+            document.getElementById('calc-prod').textContent = `+${result.prodMatch}万G`;
+            document.getElementById('calc-reason').textContent = `+${result.reasonMatch}万G`;
+            
+            const bonusCtn = document.getElementById('calc-bonus-container');
+            if (result.bonus > 0) {
+                bonusCtn.classList.remove('hidden');
+                document.getElementById('calc-bonus').textContent = `+${result.bonus}万G`;
+            } else { bonusCtn.classList.add('hidden'); }
+
+            const penaltyCtn = document.getElementById('calc-penalty-container');
+            if (result.penalty > 0) {
+                penaltyCtn.classList.remove('hidden');
+                document.getElementById('calc-penalty').textContent = `-${result.penalty}万G`;
+            } else { penaltyCtn.classList.add('hidden'); }
+
+            const randSign = result.random >= 0 ? '+' : '';
+            document.getElementById('calc-random').textContent = `${randSign}${result.random}万G`;
+            document.getElementById('calc-total').textContent = `${result.total}万G`;
+
+            let feedback = `${loc.name}に「${product}」の道の駅を出店したね！<br>`;
+            
+            if (result.total > 500) {
+                feedback += "<span class='text-blue-700'>大成功！素晴らしい出店計画です。</span><br>";
+                triggerConfetti();
+            } else if (result.total > 200) {
+                feedback += "まずまずの利益が出たね！<br>";
+            } else {
+                feedback += "うーん、少し苦戦しているみたい。<br>";
+            }
+
+            if (result.bonusReason) feedback += `<span class="text-orange-600">✨ ${result.bonusReason}</span><br>`;
+            if (result.penaltyReason) feedback += `<span class="text-red-600">⚠️ ${result.penaltyReason}</span><br>`;
+            
+            if(result.foundKeywords.length > 0) {
+                feedback += `説明に「${result.foundKeywords.join('、')}」といった地理のキーワードが使われていてGOODだよ！`;
+            } else if (!result.bonusReason && !result.penaltyReason) {
+                feedback += `次は、その場所の<b>地形（平野、台地など）</b>や<b>気候（温暖など）</b>を理由に書いてアピールしてみよう！`;
+            }
+
+            document.getElementById('mami-feedback').innerHTML = feedback;
+
+            switchScreen('turnResult');
+            updateSidebar();
+        }
+
+        function nextPlayerTurn() {
+            const currentPlayer = state.players[state.currentPlayerIndex];
+            if (currentPlayer.money >= TARGET_MONEY) {
+                showFinalResult(false);
+                return;
+            }
+
+            state.currentPlayerIndex++;
+            if (state.currentPlayerIndex >= state.players.length) {
+                state.currentPlayerIndex = 0;
+                state.turnCount++;
+            }
+            
+            saveState();
+            renderCurrentState();
+        }
+
+        function showFinalResult(isForced) {
+            state.phase = 'final';
+            saveState();
+            if(!isForced) triggerConfetti();
+            renderCurrentState();
+        }
+
+        function renderFinalRanking() {
+            const container = document.getElementById('ranking-container');
+            container.innerHTML = '';
+
+            const sortedPlayers = [...state.players].sort((a, b) => b.money - a.money);
+
+            sortedPlayers.forEach((p, idx) => {
+                const isWinner = idx === 0 && p.money >= TARGET_MONEY;
+                
+                let historyTable = '';
+                if (p.history.length > 0) {
+                    historyTable = `
+                        <table class="w-full text-sm mt-4" style="border-collapse: collapse; border: 1px solid #d1d5db;">
+                            <thead>
+                                <tr class="bg-gray-100">
+                                    <th style="border: 1px solid #d1d5db; padding: 4px;">出店地</th>
+                                    <th style="border: 1px solid #d1d5db; padding: 4px;">特産品</th>
+                                    <th style="border: 1px solid #d1d5db; padding: 4px;">収益</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${p.history.map(h => {
+                                    const locName = LOCATIONS.find(l => l.id === h.locationId)?.name || '不明';
+                                    return `
+                                    <tr>
+                                        <td style="border: 1px solid #d1d5db; padding: 4px;">${locName}</td>
+                                        <td style="border: 1px solid #d1d5db; padding: 4px;">${h.product}</td>
+                                        <td style="border: 1px solid #d1d5db; padding: 4px; text-align: right;">${h.profit}万G</td>
+                                    </tr>
+                                    `;
+                                }).join('')}
+                            </tbody>
+                        </table>
+                    `;
+                }
+
+                container.innerHTML += `
+                    <div class="bg-white p-5 rounded-2xl border-4 ${isWinner ? 'border-yellow-400 bg-yellow-50' : 'border-gray-200'} print-border">
+                        <div class="d-flex justify-between items-center border-b-2 pb-2 mb-2">
+                            <h3 class="text-2xl font-black d-flex items-center gap-2">
+                                ${idx === 0 ? '🥇' : (idx === 1 ? '🥈' : '🥉')} ${p.name}
+                            </h3>
+                            <span class="text-3xl font-black ${isWinner ? 'text-red-500' : 'text-blue-600'}">
+                                ${p.money.toLocaleString()} <span class="text-lg">万G</span>
+                            </span>
+                        </div>
+                        <div class="text-gray-600 font-bold mb-2">出店数: ${p.history.length}店舗</div>
+                        ${historyTable}
+                    </div>
+                `;
+            });
+        }
+
+        window.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
